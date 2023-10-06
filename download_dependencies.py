@@ -7,7 +7,11 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 
 
 # 构建虚拟环境的路径
-env_path = os.path.join(current_directory, "env/autolabeling")
+env_path = os.path.join(current_directory, "envs")
+
+env_name = "autolabeling"
+
+envs_path = os.path.join(env_path, env_name)
 
 # model path
 model_path = os.path.join(current_directory, "Model")
@@ -17,8 +21,11 @@ def create_conda_env():
     try:
         # 创建Conda虚拟环境
         subprocess.check_call(
-            ["conda", "create", "--prefix", env_path, "python=3.8"])
+            ["conda", "create", "--prefix", envs_path, "python=3.8"])
         print(f"Conda虚拟环境 创建成功！")
+        subprocess.check_call(
+            ["conda", "config", "--append", "envs_dirs", env_path])
+        print("conda 环境已添加")
         return True
     except subprocess.CalledProcessError as e:
         print(f"Conda虚拟环境创建失败: {e}")
@@ -28,7 +35,7 @@ def create_conda_env():
 def install_requirements(requirements_file):
     try:
         # 激活虚拟环境
-        subprocess.check_call(["conda", "activate", env_path])
+        subprocess.check_call(["source", "activate", env_name])
         subprocess.check_call(["pip", "install", requirements_file])
 
         print("依赖安装成功！")
