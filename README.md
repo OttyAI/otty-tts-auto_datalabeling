@@ -8,7 +8,7 @@
 steps:
 
 ```shell
-git clone git@github.com:OttyAI/otty-tts-auto_datalabeling.git
+git clone https://github.com/OttyAI/otty-tts-auto_datalabeling.git
 ```
 
 ```shell
