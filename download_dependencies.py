@@ -35,8 +35,7 @@ def create_conda_env():
 def install_requirements(requirements_file):
     try:
         # 激活虚拟环境
-        subprocess.check_call(["source", "activate", env_name])
-        subprocess.check_call(["pip", "install", requirements_file])
+        subprocess.run(f"conda activate {env_name} && pip install -r {requirements_file}", shell=True, executable="/bin/bash")
 
         print("依赖安装成功！")
 
